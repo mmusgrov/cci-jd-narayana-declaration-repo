@@ -1,0 +1,33 @@
+node('rhel7&&docker') {
+    timestamps {
+        deleteDir()
+        git url: '$REPOSITORY'
+        sh "git checkout $BRANCH"
+        sh '''
+            export M2_HOME=$COMMON_TOOLS/maven-3.6.0/
+            export JAVA_HOME=$NATIVE_TOOLS/openjdk-1.8.0.181/
+            export PATH=$JAVA_HOME/bin:$PATH
+            export PATH=$M2_HOME/bin:$PATH
+            export JENKINS_JAVA_HOME=$NATIVE_TOOLS/jdk1.${JAVA}.0_last/
+
+            export PATH=$NATIVE_TOOLS/firefox-60esr/:$PATH
+            export DISPLAY=:42
+            export STARTUP_TIME=420
+            curl -fsSLO https://github.com/mozilla/geckodriver/releases/download/v0.22.0/geckodriver-v0.22.0-linux64.tar.gz && tar -xvzf geckodriver-v0.22.0-linux64.tar.gz -C /mnt/hudson_workspace/workspace
+            mvn clean
+            export PATH=/mnt/hudson_workspace/workspace/:$PATH
+            export ORACLE_LOGIN=bubpaladin@mailinator.com
+            export ORACLE_PASSWORD=bubpaladin42
+            
+            vncserver :42 -geometry 1920x1080 -localhost -nolisten tcp
+            curl -kL -o jenkins.war $DOWNLOAD_URL
+            curl -kL -o /tmp/harexporttrigger-0.5.0-beta.7.xpi https://github.com/firebug/har-export-trigger/releases/download/harexporttrigger-0.5.0-beta.7/harexporttrigger-0.5.0-beta.7.xpi
+            mvn -B test -Dmaven.test.failure.ignore=true -DElasticTime.factor=2.0 $TEST
+        '''
+        sh "ls -ls"
+        junit 'target/surefire-reports/*.xml'
+        archive 'target/diagnostics/*/*'
+       
+        
+    }
+}

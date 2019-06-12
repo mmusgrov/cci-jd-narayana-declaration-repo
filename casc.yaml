@@ -1,0 +1,71 @@
+jenkins:
+  numExecutors: 1
+  quietPeriod: 0
+  slaveAgentPort: -1
+
+  # Default LDAP configuration
+  securityRealm:
+    ldap:
+      configurations:
+        - server: ldaps://ldap.corp.redhat.com
+          rootDN: dc=redhat,dc=com
+          userSearch: uid={0}
+          groupSearchBase: ou=groups
+          groupSearchFilter: (& (cn={0}) (objectclass=posixGroup))
+          groupMembershipStrategy:
+            fromGroupSearch:
+              filter: memberUid={1}
+      cache:
+        size: 100
+        ttl: 10
+      userIdStrategy: CaseInsensitive
+      groupIdStrategy: CaseInsensitive
+
+  authorizationStrategy: "loggedInUsersCanDoAnything"
+
+
+security:
+    globalJobDslSecurityConfiguration:
+      # Otherwise Job DSL either requires script approval or having all config whitelisted
+      # https://github.com/jenkinsci/job-dsl-plugin/wiki/Script-Security
+      useScriptSecurity: false
+
+
+# https://issues.jenkins-ci.org/browse/JENKINS-57822
+#  globalCIConfiguration:
+#    configs:
+#    - activeMqMessagingProvider:
+#        authenticationMethod:
+#          SSLCertificateAuthenticationMethod:
+#            keystore: "${JENKINS_HOME}/plugins/redhat-ci-plugin/ssl-cert-auth/msg-rh-jenkins-ci-plugin.jks"
+#            keypwd: "{AQAAABAAAAAQa0ko08nbh6aEa1LWmn5Sm4uXYfZbymBEJkPYjFBE4+o=}"
+#            truststore: "${JENKINS_HOME}/plugins/redhat-ci-plugin/ssl-cert-auth/redhat.jks"
+#            trustpwd: "{AQAAABAAAAAQ8n3s5g0gILpAnwmufKKNAMAgQXAg8BSK0Wd/fMR912s=}"
+#        broker: "failover:(ssl://messaging-devops-broker01.web.prod.ext.phx2.redhat.com:61616,ssl://messaging-devops-broker02.web.prod.ext.phx2.redhat.com:61616)"
+#        name: "Red Hat UMB"
+#        topicProvider: "umb"
+#        useQueues: true
+
+
+unclassified:
+  location:
+    url: "${CASC_SELF_URL:-http://localhost:8080/}"
+
+
+# https://issues.jenkins-ci.org/browse/JENKINS-57563
+#  scriptApproval:
+#    approvedSignatures:
+#      - 'staticMethod D getRuntime'
+#      - 'staticMethod D getQuery'
+#      - 'method com.github.olivergondza.dumpling.model.ProcessRuntime query com.github.olivergondza.dumpling.query.SingleThreadSetQuery'
+#      - 'method com.github.olivergondza.dumpling.query.BlockingTree showStackTraces'
+#      - 'staticMethod com.github.olivergondza.dumpling.groovy.Factories blockingTree'
+#      - 'staticMethod org.jenkinsci.plugins.workflow.cps.Safepoint safepoint' # should not be needed since permissive-script 0.5
+
+  shell:
+    shell: "bash"
+
+jobs:
+  - url: "${CASC_SEED_JOB_URL:-https://gitlab.mw.lab.eng.bos.redhat.com/jbossqe-jenkins/jcasc/raw/master/job-configurator.jobdsl.groovy}"
+  - script: "queue('job-configurator')"
+

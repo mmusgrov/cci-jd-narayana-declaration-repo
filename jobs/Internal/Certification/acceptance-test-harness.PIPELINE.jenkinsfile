@@ -1,0 +1,43 @@
+for (int i = 0; i < (BUILD_NUMBER as int); i++) {milestone()}
+def splits = splitTests count(10)
+def branches = [:]
+for (int i = 0; i < splits.size(); i++) {
+    int index = i;
+    branches["split${i}"] = {
+        node('docker&&!ipv6-test&&rhel7') {
+            timestamps {
+                deleteDir()
+                git url: 'https://github.com/lvotypko/acceptance-test-harness', branch: "credentials"
+                def exclusions = splits.get(index).join("\n");
+                writeFile file: 'excludes.txt', text:exclusions
+                sh '''
+                    export M2_HOME=$COMMON_TOOLS/maven-3.3.9/
+                    export JAVA_HOME=$NATIVE_TOOLS/jdk1.8.0_last/
+                    export PATH=$JAVA_HOME/bin:$PATH
+                    export PATH=$M2_HOME/bin:$PATH
+                    export JENKINS_JAVA_HOME=$NATIVE_TOOLS/jdk1.${JAVA}.0_last/
+    
+                    export PATH=$NATIVE_TOOLS/firefox-45esr/:$PATH
+                    export DISPLAY=:36
+                    export STARTUP_TIME=420
+                    mvn clean
+    
+                    export ORACLE_LOGIN=bubpaladin@mailinator.com
+                    export ORACLE_PASSWORD=bubpaladin42
+                    vncserver :36 -geometry 1920x1080 -localhost -nolisten tcp
+                    curl -kL -o jenkins.war $DOWNLOAD_URL
+                    git clone https://github.com/lvotypko/docker-fixtures
+                    cd docker-fixtures
+                    git checkout cp-workaround
+                    mvn install
+                    cd ..
+                    BROWSER=firefox mvn -B test -Dmaven.test.failure.ignore=true -DElasticTime.factor=2.0
+                '''
+                junit 'target/surefire-reports/*.xml'
+                archive 'target/diagnostics/*/*'
+            }
+        }
+    }
+}
+parallel branches
+

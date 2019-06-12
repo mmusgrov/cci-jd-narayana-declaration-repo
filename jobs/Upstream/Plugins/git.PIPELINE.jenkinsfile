@@ -1,0 +1,5 @@
+node() {
+  git 'https://github.com/jenkinsci/git-plugin'
+  sh '/qa/tools/opt/maven-3.6.0/bin/mvn -B clean cobertura:cobertura -Dcobertura.report.format=xml -Dmaven.test.failure.ignore=true'
+  junit '**/target/surefire-reports/**/*.xml'
+}
