@@ -1,7 +1,6 @@
 jenkins:
   numExecutors: 1
   quietPeriod: 0
-  slaveAgentPort: -1
 
   # Default LDAP configuration
   securityRealm:
@@ -21,17 +20,26 @@ jenkins:
       userIdStrategy: CaseInsensitive
       groupIdStrategy: CaseInsensitive
 
-  authorizationStrategy: "loggedInUsersCanDoAnything"
-
+  authorizationStrategy:
+    roleBased:
+      roles:
+        global:
+          - name: "admin"
+            description: "Jenkins administrators"
+            permissions:
+              - "Overall/Administer"
+            assignments:
+              - "ci-support" # Access for the support team
+              - "sysops" # Access for the support team
+              - "ops-qe-jenkins-ci-automation" # TODO document
+              - "ccit-test" # OpenShift automation account
+              - "cci-octopus" # Instance telemetry collection
 
 security:
     globalJobDslSecurityConfiguration:
       useScriptSecurity: false
 
 unclassified:
-  location:
-    url: "${CASC_SELF_URL:-http://localhost:8080/}"
-
   shell:
     shell: "bash"
 
