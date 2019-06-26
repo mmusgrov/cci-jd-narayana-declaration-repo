@@ -1,8 +1,12 @@
 jenkins:
+  # Number of executors on Master node
   numExecutors: 1
+  # Do not let builds waiting in Jenkins queue before they are assigned to agents
   quietPeriod: 0
+  # Port JNLP agents are connecting to
+  slaveAgentPort: 50000
 
-  # Default LDAP configuration
+  # Default corporate LDAP configuration
   securityRealm:
     ldap:
       configurations:
@@ -35,15 +39,16 @@ jenkins:
               - "ccit-test" # OpenShift automation account
               - "cci-octopus" # Instance telemetry collection
 
-security:
-    globalJobDslSecurityConfiguration:
-      useScriptSecurity: false
-
 unclassified:
-  shell:
-    shell: "bash"
+  mailer:
+    smtpHost: smtp.corp.redhat.com
+
+security:
+  globalJobDslSecurityConfiguration:
+    # Permit Job DSL to be run without the hassle of script security
+    useScriptSecurity: false
 
 jobs:
+  # Create and invoke the managed seed-job
   - url: "${CASC_SEED_JOB_URL:-https://gitlab.mw.lab.eng.bos.redhat.com/jbossqe-jenkins/jcasc/raw/master/job-configurator.jobdsl.groovy}"
   - script: "queue('job-configurator')"
-
