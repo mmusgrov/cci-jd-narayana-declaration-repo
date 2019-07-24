@@ -10,6 +10,8 @@ groovy
 jms-messaging
 job-dsl
 ldap
+email-ext
+mailer
 pipeline-model-definition
 pipeline-utility-steps
 role-strategy

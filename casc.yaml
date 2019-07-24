@@ -40,8 +40,9 @@ jenkins:
               - "cci-octopus" # Instance telemetry collection
 
 unclassified:
-  mailer:
-    smtpHost: smtp.corp.redhat.com
+  extendedEmailPublisher:
+    defaultSuffix: "@redhat.com"
+    smtpServer: "smtp.corp.redhat.com"
 
 security:
   globalJobDslSecurityConfiguration:
