@@ -5,6 +5,7 @@ credentials
 dumpling
 durable-task:1.28
 email-ext
+git
 gitlab-plugin
 groovy
 jms-messaging
