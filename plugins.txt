@@ -4,13 +4,12 @@ configuration-as-code-support
 credentials
 dumpling
 durable-task:1.28
-git
+email-ext
 gitlab-plugin
 groovy
 jms-messaging
 job-dsl
 ldap
-email-ext
 mailer
 pipeline-model-definition
 pipeline-utility-steps

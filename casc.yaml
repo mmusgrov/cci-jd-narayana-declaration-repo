@@ -24,20 +24,7 @@ jenkins:
       userIdStrategy: CaseInsensitive
       groupIdStrategy: CaseInsensitive
 
-  authorizationStrategy:
-    roleBased:
-      roles:
-        global:
-          - name: "admin"
-            description: "Jenkins administrators"
-            permissions:
-              - "Overall/Administer"
-            assignments:
-              - "ci-support" # Access for the support team
-              - "sysops" # Access for the support team
-              - "ops-qe-jenkins-ci-automation" # TODO document
-              - "ccit-test" # OpenShift automation account
-              - "cci-octopus" # Instance telemetry collection
+  authorizationStrategy: "loggedInUsersCanDoAnything"
 
 unclassified:
   extendedEmailPublisher:
