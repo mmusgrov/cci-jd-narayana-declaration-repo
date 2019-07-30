@@ -1,0 +1,5 @@
+node() {
+  git 'https://github.com/jenkinsci/git-plugin'
+  sh 'mvn -B clean package -Dmaven.test.failure.ignore=true'
+  junit '**/target/surefire-reports/**/*.xml'
+}
