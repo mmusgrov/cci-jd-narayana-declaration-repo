@@ -1,3 +1,3 @@
 folder(FOLDER_PATH) {
-    description('')
+    description('Folder created from general template')
 }
