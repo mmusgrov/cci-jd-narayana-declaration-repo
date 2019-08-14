@@ -9,18 +9,15 @@ jenkins:
   # Default corporate LDAP configuration
   securityRealm:
     ldap:
-      configurations:
-        - server: ldaps://ldap.corp.redhat.com
-          rootDN: dc=redhat,dc=com
-          userSearch: uid={0}
-          groupSearchBase: ou=groups
-          groupSearchFilter: (& (cn={0}) (objectclass=posixGroup))
-          groupMembershipStrategy:
-            fromGroupSearch:
-              filter: memberUid={1}
       cache:
         size: 100
         ttl: 10
+      configurations:
+        - server: ldaps://ldap.corp.redhat.com
+          rootDN: dc=redhat,dc=com
+          inhibitInferRootDN: false
+          userSearch: uid={0}
+          groupSearchFilter: (& (cn={0}) (objectclass=GroupOfUniqueNames))
       userIdStrategy: CaseInsensitive
       groupIdStrategy: CaseInsensitive
 
