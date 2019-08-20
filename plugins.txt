@@ -10,6 +10,7 @@ gitlab-plugin
 groovy
 jms-messaging
 job-dsl
+kerberos-sso
 ldap
 mailer
 pipeline-model-definition

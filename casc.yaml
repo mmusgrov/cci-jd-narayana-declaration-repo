@@ -60,6 +60,20 @@ security:
   globalJobDslSecurityConfiguration:
     # Permit Job DSL to be run without the hassle of script security
     useScriptSecurity: false
+  kerberosSso:
+    enabled: true
+    krb5Location: '/etc/krb5.conf'
+    loginLocation: '/etc/login.conf'
+    loginServerModule: 'spnego-server'
+    loginClientModule: 'spnego-client'
+    anonymousAccess: true
+    allowLocalhost: false
+    allowBasic: true
+    allowDelegation: false
+    # While strictly speaking insecure, this is a) required for localhost access
+    # and b) harmless in production that does not support http at all
+    allowUnsecureBasic: true
+    promptNtlm: false
 
 jobs:
   # Create and invoke the managed seed-job
