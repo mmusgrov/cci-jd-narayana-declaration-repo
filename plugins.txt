@@ -18,5 +18,4 @@ pipeline-utility-steps
 role-strategy
 script-security
 testng-plugin
-timestamper
-
+timestamper:1.9
