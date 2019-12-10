@@ -65,7 +65,7 @@ unclassified:
 
 security:
   globalJobDslSecurityConfiguration:
-    # Permit Job DSL to be run without the hassle of script security
+    # CCI-JD-REQUIREMENT: Permit Job DSL to be run without the hassle of script security
     useScriptSecurity: false
   kerberosSso:
     enabled: true
@@ -83,6 +83,7 @@ security:
     promptNtlm: false
 
 jobs:
-  # Create and invoke the managed seed-job
+  # CCI-JD-REQUIREMENT: Create the managed seed-job
   - url: "${CASC_SEED_JOB_URL:-https://gitlab.mw.lab.eng.bos.redhat.com/jbossqe-jenkins/jcasc/raw/master/job-configurator.jobdsl.groovy}"
+  # CCI-JD-REQUIREMENT: and invoke it
   - script: "queue('job-configurator')"
