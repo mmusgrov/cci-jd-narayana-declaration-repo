@@ -50,6 +50,13 @@ jenkins:
             assignments:
               - "anonymous"
 
+  globalNodeProperties:
+    - envVars:
+        env:
+          - key: JOB_CONFIGURATOR_MAIL_RECIPIENTS
+            value: "" # List of space separated addresses to be mailed when job-configurator fails
+          - key: JOB_CONFIGURATOR_LABEL
+            value: "" # Label where job-configurator should be run
 
 unclassified:
   extendedEmailPublisher:
