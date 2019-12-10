@@ -4,7 +4,7 @@ CASC_DECLARATION_REPO: 'TODO: file with real value'
 CASC_REPO_FILE: 'casc.yaml'
 # Name of the plugins.txt file. Expected to be in the same directory as this file.
 CASC_REPO_PLUGINS: 'plugins.txt'
-# Name of the OpenShift project the deployment is in (TENANT_NAME-jenkins-csb-PROJECT_NAME.cloud.paas.psi.redhat.com)
-OS_PROJECT_NAME: 'TODO: file with real value'
-# Name of the OpenShift tenant the deployment is in (TENANT_NAME-jenkins-csb-PROJECT_NAME.cloud.paas.psi.redhat.com)
+# Name of the OpenShift project the deployment is in (TENANT_NAME-PROJECT_NAME.cloud.paas.psi.redhat.com)
+OS_PROJECT_NAME: 'TODO: file with real value' # Prefixed by `jenkins-csb-`
+# Name of the OpenShift tenant the deployment is in (TENANT_NAME-PROJECT_NAME.cloud.paas.psi.redhat.com)
 OS_TENANT_NAME: 'TODO: file with real value'
