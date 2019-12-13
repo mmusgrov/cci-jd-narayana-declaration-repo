@@ -58,6 +58,11 @@ jenkins:
           - key: JOB_CONFIGURATOR_LABEL
             value: "" # Label where job-configurator should be run
 
+  updateCenter:
+    sites:
+    - id: "default"
+      url: "http://do.not.install.plugins.manually.use.plugins.txt"
+
 unclassified:
   extendedEmailPublisher:
     defaultSuffix: "@redhat.com"
