@@ -89,6 +89,6 @@ security:
 
 jobs:
   # CCI-JD-REQUIREMENT: Create the managed seed-job
-  - url: "${CASC_SEED_JOB_URL:-https://gitlab.mw.lab.eng.bos.redhat.com/jbossqe-jenkins/jcasc/raw/master/job-configurator.jobdsl.groovy}"
+  - url: "${CASC_SEED_JOB_URL:-https://gitlab.cee.redhat.com/ccit/jenkins-csb/raw/2-190-3/cci-jd/job-configurator.jobdsl.groovy}"
   # CCI-JD-REQUIREMENT: and invoke it
   - script: "queue('job-configurator')"

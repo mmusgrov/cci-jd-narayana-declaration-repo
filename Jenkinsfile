@@ -7,14 +7,14 @@ properties([gitLabConnection(GITLAB_CONNECTION_NAME)])
 try {
     node(JENKINS_LABEL) {
         checkout scm
-        dir("jcasc"){
-            git "https://gitlab.mw.lab.eng.bos.redhat.com/jbossqe-jenkins/jcasc.git"
+        dir("jenkins-csb"){
+            git "https://gitlab.cee.redhat.com/ccit/jenkins-csb.git", "**/2-190-3"
         }
         withEnv([
-                "JCASC_DIR=${env.WORKSPACE}/jcasc",
+                "JCASC_DIR=${env.WORKSPACE}/jenkins-csb",
                 "CONFIG_DIR=${env.WORKSPACE}"
         ]) {
-            sh "jcasc/test/test.sh"
+            sh "jenkins-csb/cci-jd/test/test.sh"
         }
     }
     updateGitlabCommitStatus(state: 'success')

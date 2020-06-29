@@ -5,7 +5,7 @@ multibranchPipelineJob(ITEM_PATH) {
         git {
             id 'id'
             // To be replaced by _actual_ declaration repository url
-            remote("https://gitlab.mw.lab.eng.bos.redhat.com/jbossqe-jenkins/jcasc-declaration-example.git")
+            remote("https://gitlab.cee.redhat.com/ccit/integration/cci-jd-example-declaration-repo.git")
         }
     }
 
