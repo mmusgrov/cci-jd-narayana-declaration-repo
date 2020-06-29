@@ -3,7 +3,7 @@ configuration-as-code
 configuration-as-code-support
 credentials
 dumpling
-durable-task:1.28
+durable-task
 email-ext
 git
 gitlab-plugin
@@ -18,4 +18,4 @@ pipeline-utility-steps
 role-strategy
 script-security
 testng-plugin
-timestamper:1.9
+timestamper
