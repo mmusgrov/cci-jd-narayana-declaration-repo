@@ -8,3 +8,5 @@ CASC_REPO_PLUGINS: 'plugins.txt'
 OS_PROJECT_NAME: 'TODO: file with real value' # Prefixed by `jenkins-csb-`
 # Name of the OpenShift tenant the deployment is in (TENANT_NAME-PROJECT_NAME.cloud.paas.psi.redhat.com)
 OS_TENANT_NAME: 'TODO: file with real value'
+# Version of the container to use. Note there is only handful of containers supported.
+JENKINS_CSB_VERSION: "2-190-3"
