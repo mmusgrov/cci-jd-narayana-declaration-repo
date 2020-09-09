@@ -8,10 +8,10 @@ try {
     node(JENKINS_LABEL) {
         checkout scm
         dir("jenkins-csb"){
-            git "https://gitlab.cee.redhat.com/ccit/jenkins-csb.git", "**/2-190-3"
+            git url: "https://gitlab.cee.redhat.com/ccit/jenkins-csb.git", branch: "2-190-3"
         }
         withEnv([
-                "JCASC_DIR=${env.WORKSPACE}/jenkins-csb",
+                "JCASC_DIR=${env.WORKSPACE}/jenkins-csb/cci-jd",
                 "CONFIG_DIR=${env.WORKSPACE}"
         ]) {
             sh "jenkins-csb/cci-jd/test/test.sh"
