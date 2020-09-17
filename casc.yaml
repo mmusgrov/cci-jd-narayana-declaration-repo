@@ -64,9 +64,10 @@ jenkins:
       url: "http://do.not.install.plugins.manually.use.plugins.txt"
 
 unclassified:
-  extendedEmailPublisher:
-    defaultSuffix: "@redhat.com"
-    smtpServer: "smtp.corp.redhat.com"
+  mailer:
+    charset: "UTF-8"
+    smtpHost: "smtp.corp.redhat.com"
+    useSsl: false
 
 security:
   globalJobDslSecurityConfiguration:
