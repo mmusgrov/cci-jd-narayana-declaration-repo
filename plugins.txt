@@ -3,7 +3,6 @@ configuration-as-code
 credentials
 dumpling
 durable-task
-email-ext
 git
 gitlab-plugin
 groovy
